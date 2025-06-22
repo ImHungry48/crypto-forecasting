@@ -6,7 +6,7 @@ from tensorflow.keras.layers import LSTM, Dense
 import matplotlib.pyplot as plt
 import os
 
-df = pd.read_csv("data\weekly_btc_ohlc.csv")
+df = pd.read_csv(r"data\weekly_btc_ohlc.csv")
 df['time'] = pd.to_datetime(df['time'])
 df.set_index('time', inplace=True)
 
@@ -72,3 +72,22 @@ plt.legend()
 plt.title("Actual vs Predicted Closing Prices")
 plt.savefig("images/actual_vs_predicted.png", dpi=300)
 plt.close()
+
+# Evalutation
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+import numpy as np
+import json
+
+mse = mean_squared_error(y_test_inv, y_pred_inv)
+mae = mean_absolute_error(y_test_inv, y_pred_inv)
+rmse = np.sqrt(mse)
+
+# Save metrics to a JSON file
+metrics = {
+    "MSE": round(float(mse), 4),
+    "RMSE": round(float(rmse), 4),
+    "MAE": round(float(mae), 4)
+}
+
+with open("metrics.json", "w") as f:
+    json.dump(metrics, f, indent=4)

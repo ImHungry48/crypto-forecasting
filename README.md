@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://img.shields.io/badge/Python-3.10-blue"><img src="https://img.shields.io/badge/Python-3.10-blue" /></a>
+  <a href="https://img.shields.io/badge/Python-3.12-blue"><img src="https://img.shields.io/badge/Python-3.12-blue" /></a>
   <a href="#"><img src="https://img.shields.io/badge/LSTM-DeepLearning-orange" /></a>
   <a href="#"><img src="https://img.shields.io/badge/DataSource-Kraken-blueviolet" /></a>
   <a href="#"><img src="https://img.shields.io/badge/License-MIT-green" /></a>

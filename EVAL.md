@@ -1,0 +1,7 @@
+# Model Evaluation
+
+| Metric | Value |
+|--------|--------|
+| MSE | 29724304.8726 |
+| RMSE | 5452.0001 |
+| MAE | 4062.8008 |
