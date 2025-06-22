@@ -1,5 +1,5 @@
-<h1 align="center">🔮 Crypto Price Forecasting with LSTM</h1>
-<p align="center">Predict the future of Bitcoin prices using deep learning and public market data from Kraken 📈</p>
+<h1 align="center">Crypto Price Forecasting with LSTM</h1>
+<p align="center">Predict the future of Bitcoin prices using deep learning and public market data from Kraken </p>
 
 <p align="center">
   <img src="images/crypto-banner.png" width="600"/>
@@ -62,7 +62,7 @@ model.compile(optimizer='adam', loss='mse')
 ```
 
 ---
-# Results
+#@ Results
 - **Sample output below (actual vs predicted closing prices)**
 <p align="center"> <img src="images/actual_vs_predicted.png" width="600"/> </p>
 - Validation MSE: coming soon
