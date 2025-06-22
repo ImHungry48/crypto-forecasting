@@ -94,3 +94,13 @@ python fetch_data.py
 ```bash
 python train_model.py
 ```
+
+---
+
+## Model Evaluation
+Started with a basic LSTM model predicting raw closing prices, resulting in high variance (RMSE ~ $5452), likely due to Bitcoin's volatility. Future versions will normalize the series using percent returns and include more features like volume.
+
+| Version | Change | RMSE |
+|---------|--------|------|
+| v1 | Raw closing price prediction | 5452.00 |
+| v2 | % Return prediction, added OHLCV | (TBD) |
