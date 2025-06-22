@@ -36,30 +36,39 @@ split = int(len(X) * 0.8)
 X_train, X_test = X[:split], X[split:]
 y_train, y_test = y[:split], y[split:]
 
+print('lstm creation')
 # Create the LSTM Model
 model = Sequential()
 model.add(LSTM(64, return_sequences=False, input_shape=(window_size, 1)))
 model.add(Dense(1))
 model.compile(optimizer='adam', loss='mse')
 
+print('beginning training')
 # Train the model
 history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
 
-# Visualize Training
+# Create output folder if it doesn't exist
+os.makedirs("images", exist_ok=True)
+
+# Save training loss plot
+plt.figure()
 plt.plot(history.history['loss'], label='Train Loss')
 plt.plot(history.history['val_loss'], label='Val Loss')
 plt.legend()
 plt.title("Training Loss Over Time")
-plt.show()
+plt.savefig("images/training_loss.png", dpi=300)
+plt.close()
 
 # Make predictions and invert scaling
 y_pred = model.predict(X_test)
 y_pred_inv = scaler.inverse_transform(y_pred)
 y_test_inv = scaler.inverse_transform(y_test.reshape(-1, 1))
 
-# Plot Predictions vs Actual
+# Save Predictions vs Actual
+plt.figure()
 plt.plot(y_test_inv, label='Actual')
 plt.plot(y_pred_inv, label='Predicted')
 plt.legend()
 plt.title("Actual vs Predicted Closing Prices")
-plt.show()
+plt.savefig("images/actual_vs_predicted.png", dpi=300)
+plt.close()

@@ -28,13 +28,13 @@
 
 ---
 
-## 🚀 Overview
+## Overview
 
 This project explores how to use sequential models (LSTM) to forecast future **Bitcoin (BTC/USD)** prices based on weekly OHLC (Open, High, Low, Close) data pulled from the **Kraken API**. The model learns temporal patterns to predict the next week's closing price.
 
 ---
 
-## 📦 Dataset
+## Dataset
 
 - **Source**: [Kraken Public OHLC API](https://docs.kraken.com/rest/#operation/getOHLCData)
 - **Pair**: `XBTUSD`
@@ -46,7 +46,7 @@ Each row includes:
 
 ---
 
-## 🧠 Model
+## Model
 
 - **Type**: LSTM Neural Network
 - **Input**: Last 12 weeks of closing prices
