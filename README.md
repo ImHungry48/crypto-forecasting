@@ -104,4 +104,4 @@ Initial experiments started with raw closing price prediction. In v2, we introdu
 |---------|--------|------|
 | v1 | Raw closing price prediction | 5452.00 |
 | v2 | + OHLCV features, + percent return, + stacked LSTMS(128->64) + Dropout(0.2), + EarlyStopping, fixed inverse scaling | 7348.37 |
-| v3 | predict log return instead of prices/percent returns, rolling volatility, moving average | (TBA) |
+| v3 (in progress) | predict log return instead of prices/percent returns, rolling volatility, moving average | (TBA) |
