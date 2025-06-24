@@ -36,14 +36,12 @@ split = int(len(X) * 0.8)
 X_train, X_test = X[:split], X[split:]
 y_train, y_test = y[:split], y[split:]
 
-print('lstm creation')
 # Create the LSTM Model
 model = Sequential()
 model.add(LSTM(64, return_sequences=False, input_shape=(window_size, 1)))
 model.add(Dense(1))
 model.compile(optimizer='adam', loss='mse')
 
-print('beginning training')
 # Train the model
 history = model.fit(X_train, y_train, epochs=50, batch_size=16, validation_data=(X_test, y_test))
 
