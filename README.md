@@ -98,9 +98,10 @@ python train_model.py
 ---
 
 ## Model Evaluation
-Started with a basic LSTM model predicting raw closing prices, resulting in high variance (RMSE ~ $5452), likely due to Bitcoin's volatility. Future versions will normalize the series using percent returns and include more features like volume.
+Initial experiments started with raw closing price prediction. In v2, we introduced percent return features, expanded to OHLCV inputs, added dropout regularization, and stacked LSTM layers with early stopping. Performance dropped slightly (higher RMSE), but the model structure is now better suited for learning temporal patterns—future tuning will address this.
 
 | Version | Change | RMSE |
 |---------|--------|------|
 | v1 | Raw closing price prediction | 5452.00 |
-| v2 | % Return prediction, added OHLCV | (TBD) |
+| v2 | + OHLCV features, + percent return, + stacked LSTMS(128->64) + Dropout(0.2), + EarlyStopping, fixed inverse scaling | 7348.37 |
+| v3 | predict log return instead of prices/percent returns, rolling volatility, moving average | (TBA) |
