@@ -2,7 +2,7 @@
 <p align="center">Predict the future of Bitcoin prices using deep learning and public market data from Kraken </p>
 
 <p align="center">
-  <img src="images/crypto-banner.png" width="600"/>
+  <img src="bitcoin-bitcoin-coaster.gif" width="600"/>
 </p>
 
 <p align="center">
