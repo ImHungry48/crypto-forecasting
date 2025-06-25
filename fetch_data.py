@@ -5,6 +5,10 @@ from fredapi import Fred
 from dotenv import load_dotenv
 
 load_dotenv()
+fred_api_key = os.getenv("FRED_API_KEY")
+
+if not fred_api_key:
+    raise EnvironmentError("FRED_API_KEY not found in environment. Did you forget to load your .env file?")
 
 def get_kraken_ohlc(pair='XBTUSD', interval=10080):
     url = "https://api.kraken.com/0/public/OHLC"
@@ -30,7 +34,7 @@ def get_kraken_ohlc(pair='XBTUSD', interval=10080):
     return df
 
 def get_fed_data():
-    fred = Fred(api_key=os.getenv("FRED_API_KEY"))
+    fred = Fred(api_key=fred_api_key)
 
     series_config = {
         'FF': ('W', 'ffill'),                 # Weekly Fed Funds Rate
