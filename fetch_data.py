@@ -53,9 +53,9 @@ def get_fed_data():
         data.index = pd.to_datetime(data.index)
 
         if agg_method == 'mean':
-            weekly = data.resample('W-MON').mean()
+            weekly = data.resample('W-THU').mean()
         elif agg_method == 'ffill':
-            weekly = data.resample('W-MON').ffill()
+            weekly = data.resample('W-THU').ffill()
         else:
             raise ValueError(f"Unknown aggregation: {agg_method}")
         
@@ -87,6 +87,6 @@ if __name__ == '__main__':
     fed_df = get_fed_data()
     if fed_df is not None:
         os.makedirs(output_dir, exist_ok=True)
-        fed_df.to_csv(os.path.join(output_dir, 'fed_macro.csv'))
+        fed_df.to_csv(os.path.join(output_dir, 'fed_macro.csv'), index=True, index_label='DATE')
         print('Saved to data/fed_macro.csv')
     

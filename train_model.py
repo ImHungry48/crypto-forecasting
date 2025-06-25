@@ -7,9 +7,22 @@ from tensorflow.keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 import os
 
+# Load BTC data
 df = pd.read_csv(r"data\weekly_btc_ohlc.csv")
 df['time'] = pd.to_datetime(df['time'])
 df.set_index('time', inplace=True)
+
+# Load macro data
+macro = pd.read_csv("data/fed_macro.csv")
+macro['DATE'] = pd.to_datetime(macro['DATE'])
+macro.set_index('DATE', inplace=True)
+
+# Align BTC and macro data
+df = df.join(macro, how='inner')  # Inner join ensures dates align
+
+print("BTC data range: ", df.index.min(), "to", df.index.max())
+print("Macro data range: ", macro.index.min(), "to", macro.index.max())
+print("Joined data shape: ", df.shape)
 
 # Calculate percent returns
 df['percent_return'] = df['close'].pct_change() * 100
@@ -17,12 +30,16 @@ df['percent_return'] = df['close'].pct_change() * 100
 # Drop rows with NaN values (due to pct_change)
 df.dropna(inplace=True)
 
-# Use OHLCV features and percent returns as inputs
-data = df[['open', 'high', 'low', 'close', 'volume', 'percent_return']].copy()
+# Select final features (BTC features + macro)
+features = df[['open', 'high', 'low', 'close', 'volume', 'percent_return',
+               'FF', 'FEDFUNDS', 'EFFR', 'CPIAUCNS', 'USREC', 'USEPUINDXM']].copy()
+
+# Double-check row before normalization
+print("Sample feature row:\n", features.iloc[-1])
 
 # Normalize the data
 scaler = MinMaxScaler()
-scaled_data = scaler.fit_transform(data)
+scaled_data = scaler.fit_transform(features)
 
 # Make the sequences
 def create_sequences(data, window_size):
@@ -71,11 +88,9 @@ plt.close()
 # Make predictions and invert scaling
 y_pred = model.predict(X_test)
 
-# Get the same close prices used in y_train/y_test
-raw_close = df['close'].values[window_size:]  # because you dropped `window_size` rows making sequences
-
+raw_close = df['close'].values[window_size:]
 target_scaler = MinMaxScaler()
-target_scaler.fit(raw_close[:split].reshape(-1, 1))  # fit only on training portion
+target_scaler.fit(raw_close[:split].reshape(-1, 1))
 
 # In create_sequences: return X, y (scaled close only)
 # In model: use same X, predict scaled close
