@@ -100,8 +100,14 @@ python train_model.py
 ## Model Evaluation
 Initial experiments started with raw closing price prediction. In v2, we introduced percent return features, expanded to OHLCV inputs, added dropout regularization, and stacked LSTM layers with early stopping. Performance dropped slightly (higher RMSE), but the model structure is now better suited for learning temporal patterns—future tuning will address this.
 
-| Version | Change | RMSE |
-|---------|--------|------|
-| v1 | Raw closing price prediction | 5452.00 |
-| v2 | + OHLCV features, + percent return, + stacked LSTMS(128->64) + Dropout(0.2), + EarlyStopping, fixed inverse scaling | 7348.37 |
-| v3 (in progress) | predict log return instead of prices/percent returns, rolling volatility, moving average | (TBA) |
+| Version | Change | RMSE | Learned |
+|---------|--------|------|---------|
+| v1 | Raw closing price prediction | 5,452.00 | Baseline model. Simple LSTM with just price failed to capture patterns well, underfit most of the trend. |
+| v2 | + OHLCV features, + percent return, + stacked LSTMs (128→64) + Dropout(0.2), + EarlyStopping, fixed inverse scaling | 7,348.37 | More features improved structure, but the model still struggled with volatility and sharp directional shifts. More complexity doesn't always mean better performance. |
+| v3 | + U.S. macro data (interest rates, inflation, recession, uncertainty index) | 12,446.00 | U.S.-only macro context isn't enough — Bitcoin reacts to global signals. Model learned general trends but underperformed during rapid growth phases. |
+
+**Next Steps (v4):**
+- Add EU-based macro indicators (ECB rates, Eurozone inflation)
+- Experiment with alternative targets (return, direction classification)
+- Add sentiment or geopolitical event data (e.g. GDELT, Twitter)
+- Try more expressive architectures (e.g., CNN-LSTM, attention)
