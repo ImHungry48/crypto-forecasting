@@ -66,9 +66,17 @@ model.compile(optimizer='adam', loss='mse')
 - **Sample output below (actual vs predicted closing prices)**
 <p align="center"> <img src="images/actual_vs_predicted.png" width="600"/> </p>
 
-- Validation MSE: coming soon
-- Model captures macro trends reasonably well
-- Still tuning for sharper short-term precision
+
+### Observations
+- The model captures **broad macro trends** in Bitcoin’s price, especially during stable or modest growth periods.
+- However, it tends to **underpredict during sharp upward trends**, likely due to the limitations of U.S.-only macro features.
+- Volatility and breakout behavior remain challenging to capture with LSTM alone and without more reactive data (e.g., sentiment or global context).
+
+  ### Next Improvements
+- Incorporate **Eurozone macro indicators** (e.g., ECB rates, EU CPI)
+- Add sentiment data and event-driven features (e.g., GDELT, ACLED)
+- Explore alternative targets: return %, directional classification
+- Try advanced architectures: **CNN-LSTM**, **attention**, or **transformers**
 
 ---
 
@@ -98,7 +106,14 @@ python train_model.py
 ---
 
 ## Model Evaluation
-Initial experiments started with raw closing price prediction. In v2, we introduced percent return features, expanded to OHLCV inputs, added dropout regularization, and stacked LSTM layers with early stopping. Performance dropped slightly (higher RMSE), but the model structure is now better suited for learning temporal patterns—future tuning will address this.
+Initial experiments began with raw closing price prediction using a simple LSTM. In v2, the input was expanded to include OHLCV features and percent returns, introduced dropout regularization, and stacked LSTM layers with early stopping. While RMSE increased slightly, the model became better suited for learning temporal dependencies and market structure.
+
+In v3, U.S. macroeconomic indicators (interest rates, inflation, recession signals, and policy uncertainty) were incorporated. This helped the model capture broad economic trends, but it still struggled with sharp price surges and volatility — suggesting that Bitcoin’s behavior is influenced by **global signals beyond U.S. metrics alone**.
+
+These iterations have shown that:
+- LSTM captures trend but not high-volatility breakout behavior
+- U.S.-only macro inputs provide some signal, but are **not sufficient**
+- Incorporating global data (EU, sentiment, events) and alternative targets (e.g., price direction, % return) may improve predictive accuracy
 
 | Version | Change | RMSE | Learned |
 |---------|--------|------|---------|
