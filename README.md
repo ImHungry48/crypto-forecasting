@@ -51,15 +51,36 @@ Each row includes:
 
 ## Model
 
+<table align="center">
+  <tr>
+    <td align="center" width="300">
+      <img src="images/model-icon.png" width="80" /><br />
+      <strong>Model</strong><br />
+      2-layer LSTM with Dropout<br />
+      Forecasting weekly BTC prices
+    </td>
+    <td align="center" width="300">
+      <img src="images/data-icon.png" width="80" /><br />
+      <strong>Input</strong><br />
+      Last 12 weeks of OHLCV + macro data<br />
+      (e.g., interest rate, CPI, EPU)
+    </td>
+  </tr>
+</table>
+
 - **Type**: LSTM Neural Network
-- **Input**: Last 12 weeks of closing prices
-- **Target**: Next week’s closing price
+- **Input Shape**: (12, 12) - 12 time steps (weeks), 12 features (OHLCV + macro)
+- **Target**: Next week's normalized closing price
 - **Loss**: MSE (Mean Squared Error)
 - **Optimizer**: Adam
+- **Regularization**: Dropout(0.2) between stacked LSTMs
+- **Callbacks**: EarlyStopping(patience=10)
 
 ```python
 model = Sequential()
-model.add(LSTM(64, input_shape=(12, 1)))
+model.add(LSTM(128, return_sequences=True, input_shape=(window_size, X.shape[2])))
+model.add(Dropout(0.2))
+model.add(LSTM(64))
 model.add(Dense(1))
 model.compile(optimizer='adam', loss='mse')
 ```
