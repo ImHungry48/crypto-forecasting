@@ -14,17 +14,18 @@
 
 ---
 
-## 📚 Table of Contents
+## Table of Contents
 
-- [🚀 Overview](#-overview)
-- [📦 Dataset](#-dataset)
-- [🧠 Model](#-model)
-- [📈 Results](#-results)
-- [🛠 Setup](#-setup)
-- [🧰 Built With](#-built-with)
-- [✅ Future Work](#-future-work)
-- [🙌 Acknowledgements](#-acknowledgements)
-- [📜 License](#-license)
+- [Overview](#overview)
+- [Data Sources](#data-sources)
+- [Setup](#setup)
+- [Model Architecture](#model-architecture)
+- [Training Process](#training-process)
+- [Model Evaluation](#model-evaluation)
+- [Results](#results)
+- [Version Log](#version-log)
+- [Built With](#built-with)
+- [Future Work](#future-work)
 
 ---
 
@@ -72,12 +73,6 @@ model.compile(optimizer='adam', loss='mse')
 - However, it tends to **underpredict during sharp upward trends**, likely due to the limitations of U.S.-only macro features.
 - Volatility and breakout behavior remain challenging to capture with LSTM alone and without more reactive data (e.g., sentiment or global context).
 
-  ### Next Improvements
-- Incorporate **Eurozone macro indicators** (e.g., ECB rates, EU CPI)
-- Add sentiment data and event-driven features (e.g., GDELT, ACLED)
-- Explore alternative targets: return %, directional classification
-- Try advanced architectures: **CNN-LSTM**, **attention**, or **transformers**
-
 ---
 
 ## Setup
@@ -122,7 +117,45 @@ These iterations have shown that:
 | v3 | + U.S. macro data (interest rates, inflation, recession, uncertainty index) | 12,446.00 | U.S.-only macro context isn't enough — Bitcoin reacts to global signals. Model learned general trends but underperformed during rapid growth phases. |
 
 **Next Steps (v4):**
-- Add EU-based macro indicators (ECB rates, Eurozone inflation)
-- Experiment with alternative targets (return, direction classification)
-- Add sentiment or geopolitical event data (e.g. GDELT, Twitter)
-- Try more expressive architectures (e.g., CNN-LSTM, attention)
+- Incorporate **Eurozone macro indicators** (e.g., ECB rates, EU CPI)
+- Add sentiment data and event-driven features (e.g., GDELT, ACLED)
+- Explore alternative targets: return %, directional classification
+- Try advanced architectures: **CNN-LSTM**, **attention**, or **transformers**
+---
+## 🛠️ Built With
+
+- Python 3.12
+- [TensorFlow/Keras](https://www.tensorflow.org/)
+- [scikit-learn](https://scikit-learn.org/)
+- [pandas](https://pandas.pydata.org/)
+- [matplotlib](https://matplotlib.org/)
+- [fredapi](https://github.com/mortada/fredapi)
+- [krakenohlc](https://docs.kraken.com/api/docs/rest-api/get-ohlc-data/)
+- Jupyter + VS Code
+---
+## Future Work
+
+Planned future improvements to enhance accuracy and signal diversity include:
+
+###  Macro & Policy Signals
+- European Central Bank rates and EU inflation
+- Global government regulations and sanctions
+- Real-time ETF approval tracking (e.g., SEC)
+
+### Market & On-Chain Indicators
+- Exchange inflows/outflows
+- Miner hash rate and network health
+- Whale wallet movements and transaction volume
+- Blockchain forks and protocol upgrades
+
+### Sentiment & Media Signals
+- Social media sentiment (Twitter, Reddit, Google Trends)
+- News event frequency from GDELT or ACLED
+- Corporate adoption and major partnership announcements
+
+### Modeling Enhancements
+- Predictive targets beyond price: % return, direction classification
+- Multi-head models for trend + volatility
+- Hybrid CNN-LSTM or Transformer-based architectures
+- SHAP-based feature attribution and confidence estimation
+
